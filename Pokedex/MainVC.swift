@@ -8,21 +8,29 @@
 
 import UIKit
 
-class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UISearchBarDelegate {
     
+    //---Iboutlets
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    //variables 
+    
+    var InSearchMode = false
     
     
     //--Arrays--//
     
     var Pokelist = [Pokemon]()
+    var pokemonFiltered = [Pokemon]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.delegate = self
         collectionView.dataSource = self
+        searchBar.delegate = self
         
         ParseCSV()
         
@@ -69,7 +77,12 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelega
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        if InSearchMode {
+            return pokemonFiltered.count
+        } else {
         return Pokelist.count
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 150, height: 150)
@@ -81,13 +94,37 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelega
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell {
             
-            let pokemon = Pokelist[indexPath.row]
-            cell.UpdateCell(pokemon)
+            let pokemon: Pokemon!
+            if InSearchMode {
+                 pokemon = pokemonFiltered[indexPath.row]
+                  cell.UpdateCell(pokemon)
+            } else {
+                pokemon = Pokelist[indexPath.row]
+                cell.UpdateCell(pokemon)
+            }
             
             return cell
             
         }else {
         return UICollectionViewCell()
+        }
+    }
+    
+//--search func to close keyboard
+    
+    
+//--- search filter function---//
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == nil || searchBar.text == "" {
+            InSearchMode = false
+            collectionView.reloadData()
+        }else {
+            InSearchMode = true
+            
+            let lower = searchBar.text!.lowercased()
+            pokemonFiltered = Pokelist.filter({$0.pokemonName.range(of: lower) != nil})
+            collectionView.reloadData()
         }
     }
 
