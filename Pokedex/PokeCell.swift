@@ -14,6 +14,12 @@ class PokeCell: UICollectionViewCell {
     @IBOutlet weak var pokeimage: UIImageView!
     @IBOutlet weak var pokeID: UILabel!
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        layer.cornerRadius = 4.0
+    }
+    
     
     
     //funct toupdate cell 
