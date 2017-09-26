@@ -14,7 +14,9 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelega
     @IBOutlet weak var collectionView: UICollectionView!
     
     
+    //--Arrays--//
     
+    var Pokelist = [Pokemon]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,16 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelega
             let Row = Path.rows
             print(Row)
             
+            //loop csv to parse all pokemon
+            
+            for pok in Row {
+                let Name = pok["identifier"]!
+                let pokeID = Int(pok["id"]!)!
+                
+                let pokemon = Pokemon(pokemonName: Name, pokemonID: pokeID)
+                Pokelist.append(pokemon)
+            }
+            
             
             
         }catch let err as NSError {
@@ -57,7 +69,7 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelega
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 100
+        return Pokelist.count
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 150, height: 150)
@@ -68,6 +80,9 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell {
+            
+            let pokemon = Pokelist[indexPath.row]
+            cell.UpdateCell(pokemon)
             
             return cell
             

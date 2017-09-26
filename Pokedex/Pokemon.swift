@@ -27,4 +27,10 @@ class Pokemon {
     }
     
     
+    init(pokemonName: String, pokemonID: Int) {
+        _pokemonID = pokemonID
+        _pokemonName = pokemonName
+    }
+    
+    
 }//end class
