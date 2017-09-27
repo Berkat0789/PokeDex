@@ -21,6 +21,7 @@ class Pokemon {
     private var _pokeSpeed: Int!
     private var _pokeType: String!
     private var _pokeURL: String!
+    private var _pokeEvo: Int!
     
     
     
@@ -88,6 +89,12 @@ class Pokemon {
         }
         return _pokeType
     }
+    var pokeEvo: Int {
+        if _pokeEvo == nil {
+            _pokeEvo = 0
+        }
+        return _pokeEvo
+    }
 
     
     init(pokemonName: String, pokemonID: Int) {
@@ -139,12 +146,24 @@ class Pokemon {
                     }
                 }
                 
+                if let evolutions = Dict["evolutions"] as? [Dictionary<String, AnyObject>] {
+                    
+                    if let level = evolutions[0]["level"] as? Int {
+                        self._pokeEvo = level
+                        print(self._pokeEvo)
+                        
+                    }
+                
+                
+                }
+                
                 
                 
                 
                 
                 
             }//end if let dict
+            complete()
             
         }//end alamorequest
     }//end func

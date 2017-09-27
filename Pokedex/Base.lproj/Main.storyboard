@@ -350,6 +350,7 @@
                         <outlet property="defense" destination="VFj-55-ffb" id="R0s-Hq-vji"/>
                         <outlet property="height" destination="ys2-S9-o1j" id="Ixg-th-xfX"/>
                         <outlet property="pokeDescription" destination="PiL-Ba-ACd" id="Dhh-mA-g1n"/>
+                        <outlet property="pokeEvolution" destination="x8D-FX-i7k" id="cxD-bP-d9y"/>
                         <outlet property="pokeName" destination="l0O-63-ze1" id="tcs-Ls-aSh"/>
                         <outlet property="pokeimage" destination="GSR-yn-Svt" id="Zuh-XD-phj"/>
                         <outlet property="speed" destination="Whj-UT-kLS" id="peL-FN-liQ"/>
@@ -359,7 +360,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DMU-6b-eRW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="860" y="136.28185907046478"/>
+            <point key="canvasLocation" x="860" y="153"/>
         </scene>
     </scenes>
     <resources>
