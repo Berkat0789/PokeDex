@@ -48,7 +48,6 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelega
         do{
             let Path = try CSV(contentsOfURL: csvPath)
             let Row = Path.rows
-            print(Row)
             
             //loop csv to parse all pokemon
             
@@ -88,7 +87,26 @@ class MainVC: UIViewController, UICollectionViewDelegate, UICollectionViewDelega
         return CGSize(width: 150, height: 150)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //
+        var pokemon: Pokemon!
+        
+        if InSearchMode {
+            pokemon = pokemonFiltered[indexPath.row]
+        }else {
+            pokemon = Pokelist[indexPath.row]
+        }
+         performSegue(withIdentifier: "toDetail", sender: pokemon)
+    }
+    
+    
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? PokeDetails {
+            if let poke = sender as? Pokemon {
+                destination.pokeDetail = poke
+            }
+        }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
