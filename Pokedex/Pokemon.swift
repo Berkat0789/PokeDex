@@ -14,8 +14,8 @@ class Pokemon {
     private var _pokemonName: String!
     private var _pokemonID: Int!
     private var _pokeDescription: String!
-    private var _pokeHeight: Int!
-    private var _pokeWeight: Int!
+    private var _pokeHeight: String!
+    private var _pokeWeight: String!
     private var _pokeAttack: Int!
     private var _pokeDefense: Int!
     private var _pokeSpeed: Int!
@@ -49,16 +49,16 @@ class Pokemon {
         return _pokeDescription
     }
     
-    var pokeHeight: Int {
+    var pokeHeight: String {
         if _pokeHeight == nil {
-            _pokeHeight = 0
+            _pokeHeight = ""
         }
         return _pokeHeight
     }
     
-    var PokeWeight: Int {
+    var PokeWeight: String {
         if _pokeWeight == nil {
-            _pokeWeight = 0
+            _pokeWeight = ""
         }
         return _pokeWeight
     }
@@ -106,6 +106,42 @@ class Pokemon {
                print(response)
             
             if let Dict = result.value as? Dictionary<String, AnyObject> {
+                
+                if let attack = Dict["attack"] as? Int {
+                    self._pokeAttack = attack
+                    print(self._pokeAttack)
+                }
+                
+                if let defense = Dict["defense"] as? Int {
+                    self._pokeDefense = defense
+                    print(self._pokeDefense)
+                }
+                
+                
+                if let height  = Dict["height"] as? String {
+                    self._pokeHeight = height
+                    print(self._pokeHeight)
+                }
+                
+                if let Weight = Dict["weight"] as? String {
+                    self._pokeWeight = Weight
+                    print(self._pokeWeight)
+                }
+                
+                if let speed = Dict["speed"] as? Int {
+                    self._pokeSpeed = speed
+                    print(self._pokeSpeed)
+                }
+                if let type = Dict["types"] as? [Dictionary<String, AnyObject>] {
+                    if let name = type[0]["name"] as? String {
+                        self._pokeType = name
+                        print(self._pokeType)
+                    }
+                }
+                
+                
+                
+                
                 
                 
             }//end if let dict
